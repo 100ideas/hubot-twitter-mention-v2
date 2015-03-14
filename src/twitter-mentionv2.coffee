@@ -8,7 +8,7 @@
 # Configuration:
 #   HUBOT_TWITTER_CONSUMER_KEY
 #   HUBOT_TWITTER_CONSUMER_SECRET
-#   HUBOT_TWITTER_ACCESS_TOKEN_KEY
+#   HUBOT_TWITTER_ACCESS_TOKEN
 #   HUBOT_TWITTER_ACCESS_TOKEN_SECRET
 #   HUBOT_TWITTER_MENTION_QUERY
 #   HUBOT_TWITTER_MENTION_ROOM
@@ -47,7 +47,7 @@ module.exports = (robot) ->
     twit = getTwit()
     twit.get 'search/tweets', {q: query, count: count, since_id: since_id}, (err, data) ->
       if err
-        console.log "Error getting tweets: #{err}"
+        robot.logger.error "hubot-twitter-mentionv2 #{err} Query: #{query}"
         return
       if data.statuses? and data.statuses.length > 0
         robot.brain.data.last_tweet = data.statuses[0].id_str
